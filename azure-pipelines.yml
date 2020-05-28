@@ -39,8 +39,8 @@ stages:
           $(tag)
     - task: CopyFiles@2
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/build/libs'
-        Contents: '*.war'
+        SourceFolder: '$(System.DefaultWorkingDirectory)/apis/user-java/charts/mydrive-user-java'
+        Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
       displayName: 'Copying'
 
