@@ -28,17 +28,17 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    #- task: Maven@3
-    #  inputs:
-    #    mavenPomFile: 'apis/user-java/pom.xml'
-    #    publishJUnitResults: true
-    #    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    #    testRunTitle: 'testpractice'
-    #    javaHomeOption: 'JDKVersion'
-    #    mavenVersionOption: 'Default'
-    #    mavenAuthenticateFeed: false
-    #    effectivePomSkip: false
-    #    sonarQubeRunAnalysis: false
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'apis/user-java/pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        testRunTitle: 'testpractice'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
     - task: CreateWorkItem@1
       condition: failed()
       inputs:
