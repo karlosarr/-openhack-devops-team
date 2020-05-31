@@ -59,7 +59,7 @@ stages:
         command: buildAndPush
         #repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        #containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
     - task: HelmInstaller@1
