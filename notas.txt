@@ -1,0 +1,30 @@
+nicier sesion con aks
+az aks get-credentials --resource-group openhackb4i6rg --name openhackb4i6aks
+
+ver pods
+ kubectl get pods  
+
+servicios
+kubectl get services
+
+los dominios
+ kubectl get ingress 
+
+Caracteristicas del ingress
+kubectl describe ingress api-poi-mydrive-poi-prod 
+
+
+muestra el pod y una interacciòn interactiva
+
+kubectl get pods -w 
+
+borrar
+kubectl delete pod user-java-deploy-blue-5bf95fd995-tq2f7
+
+
+$newSlot.enable=true,$currentSlot.enable=false,repository.image=openhackb4i6acr.azurecr.io/devopsoh/api-user-java,ingress.rules.endpoint.host=stageakstraefikopenhackb4i6.southcentralus.cloudapp.azure.com
+
+
+repository.image=openhackb4i6acr.azurecr.io/devopsoh/api-user-java,ingress.rules.endpoint.host=akstraefikopenhackb4i6.southcentralus.cloudapp.azure.com
+
+--reuse-values
