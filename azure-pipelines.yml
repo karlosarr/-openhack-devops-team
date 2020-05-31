@@ -39,11 +39,11 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
-    - task: CreateWorkItem@1
-      condition: failed()
-      inputs:
-        workItemType: 'Bug'
-        title: 'Bug on failed testing'
+    #- task: CreateWorkItem@1
+    #  condition: failed()
+    #  inputs:
+    #    workItemType: 'Bug'
+    #    title: 'Bug on failed testing'
     
 - stage: Build
   displayName: Build and push stage
