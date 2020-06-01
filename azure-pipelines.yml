@@ -14,10 +14,12 @@ variables:
   imageRepositoryApiUserJava: 'karlosarr/api-user-java'
   imageRepositoryApiPio: 'karlosarr/api-poi'
   imageRepositoryApiTrip: 'karlosarr/api-trip'
+  imageRepositoryApiUserProfile: 'karlosarr/api-userprofile'
   containerRegistry: 'openhackb4i6acr.azurecr.io'
   dockerfilePathApiUserJava: '$(Build.SourcesDirectory)/apis/user-java/Dockerfile'
   dockerfilePathApiPio: 'apis/poi/web/Dockerfile'
   dockerfilePathApiTrip: 'apis/trips/Dockerfile'
+  dockerfilePathApiUserProfile: 'apis/userprofile/Dockerfile'
   tag: '$(Build.BuildId)'
   
   # Agent VM image name
@@ -162,6 +164,45 @@ stages:
       inputs:
         command: 'package'
         chartPath: 'apis/trips/charts/mydrive-trips/'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+- stage: BuildApiUserProfile
+  displayName: Api User Profile
+  jobs:
+  - job: UnitTesting
+    displayName: Unit Testing
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Npm@1
+      inputs:
+        command: 'install'
+        workingDir: 'apis/userprofile/'
+  - job: Build
+    displayName: Api User Profile
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        containerRegistry: 'Docker Hub'
+        repository: '$(imageRepositoryApiUserProfile)'
+        command: 'buildAndPush'
+        Dockerfile: '$(dockerfilePathApiUserProfile)'
+        tags: '$(tag)'
+    - task: HelmInstaller@1
+      displayName: Helm Install
+      inputs:
+        helmVersionToInstall: '2.14.1'
+    - task: HelmDeploy@0
+      displayName: Helm Package
+      inputs:
+        command: 'package'
+        chartPath: 'apis/userprofile/charts/mydrive-user/'
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
