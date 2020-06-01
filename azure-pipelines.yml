@@ -138,10 +138,10 @@ stages:
     - task: GoTool@0
       inputs:
         version: '1.10'
-    #- task: Go@0
-    #  inputs:
-    #    command: 'test'
-    #    workingDirectory: '$(Build.SourcesDirectory)/apis/trips'
+    - task: Go@0
+      inputs:
+        command: 'test'
+        workingDirectory: '$(Build.SourcesDirectory)/apis/trips/test'
   - job: Build
     displayName: Api Trip
     pool:
