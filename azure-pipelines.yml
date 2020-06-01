@@ -219,5 +219,6 @@ stages:
     steps:
       - task: XamarinAndroid@1
         inputs:
-          projectFile: 'OBDLibrary/ObdLibAndroid/ObdLibAndroid.csproj'
+          projectFile: 'MobileApps/MyDriving/MyDriving.Android/MyDriving.Android.csproj'
+          clean: true
           jdkOption: 'JDKVersion'
