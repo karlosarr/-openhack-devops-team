@@ -25,7 +25,27 @@ variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
-stages:          
+stages:
+- stage: BuildMyDriving
+  displayName: MyDriving
+  jobs:
+  - job: Android
+    displayName: Build Android
+    pool:
+      vmImage: 'VS2017-Win2016'
+    steps:
+      - task: NuGetToolInstaller@0
+      - task: NuGetCommand@2
+        inputs:
+          command: 'restore'
+          restoreSolution: 'MobileApps/MyDriving.sln'
+          feedsToUse: 'select'
+      - task: NuGetCommand@2
+        inputs:
+          command: 'restore'
+          restoreSolution: 'MobileApps/MyDriving.sln'
+          feedsToUse: 'select'
+
 - stage: BuildMobileApps
   displayName: Mobile Apps
   jobs:
@@ -34,7 +54,6 @@ stages:
     pool:
       vmImage: 'VS2017-Win2016'
     steps:
-
       - task: NuGetToolInstaller@0
       - task: NuGetCommand@2
         inputs:
