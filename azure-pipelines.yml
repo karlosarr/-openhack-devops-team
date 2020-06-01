@@ -219,6 +219,6 @@ stages:
     steps:
       - task: XamarinAndroid@1
         inputs:
-          projectFile: 'MobileApps/MyDriving/MyDriving.Android/MyDriving.Android.csproj'
+          projectFile: '$(Build.SourcesDirectory)/MobileApps/MyDriving/MyDriving.Android/MyDriving.Android.csproj'
           clean: true
           jdkOption: 'JDKVersion'
