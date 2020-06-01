@@ -33,7 +33,7 @@ stages:
   - job: Android
     displayName: Build Android
     pool:
-      vmImage: 'VS2017-Win2017'
+      vmImage: 'vs2017-win2016'
     steps:
 
       - task: NuGetToolInstaller@0
