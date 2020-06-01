@@ -40,16 +40,15 @@ stages:
           command: 'restore'
           restoreSolution: 'MobileApps/MyDriving.sln'
           feedsToUse: 'select'
-      
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'pack'
+          packagesToPack: '**/MyDriving.csproj'
+          versioningScheme: 'off'
       #- task: DotNetCoreCLI@2
       #  inputs:
       #    command: 'build'
       #    projects: '$(Build.SourcesDirectory)/MobileApps/MyDriving/MyDriving/MyDriving.csproj'
-      - task: NuGetCommand@2
-        inputs:
-          command: 'pack'
-          packagesToPack: '**/MyDriving.csproj'
-          packDestination: '$(Build.ArtifactStagingDirectory)'
       - task: NuGetCommand@2
         inputs:
           command: 'push'
