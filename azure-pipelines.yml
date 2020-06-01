@@ -138,7 +138,7 @@ stages:
     - task: Go@0
       inputs:
         command: 'test'
-        workingDirectory: '$(Build.SourcesDirectory)/apis/poi'
+        workingDirectory: '$(Build.SourcesDirectory)/apis/trips'
   - job: Build
     displayName: Api Trip
     pool:
