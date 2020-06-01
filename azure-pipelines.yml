@@ -11,43 +11,50 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'f009ea47-5fc6-4a29-8099-b3000b951482'
-  imageRepository: 'karlosarr/api-user-java'
+  imageRepositoryApiUserJava: 'karlosarr/api-user-java'
+  imageRepositoryApiPio: 'karlosarr/api-poi'
   containerRegistry: 'openhackb4i6acr.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/apis/user-java/Dockerfile'
+  dockerfilePathApiUserJava: '$(Build.SourcesDirectory)/apis/user-java/Dockerfile'
+  dockerfilePathApiPio: 'apis/poi/web/Dockerfile'
   tag: '$(Build.BuildId)'
   
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
 stages:
-- stage: UnitTesting
-  displayName: Unit testing 
+- stage: BuildApiUserJava
+  displayName: Api Pio
   jobs:  
-  - job: UnitTesting
-    displayName: Unittesting
+  - job: Build
+    displayName: Api Pio
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: Maven@3
+    - task: Docker@2
+      displayName: Build and push an image to container registry
       inputs:
-        mavenPomFile: 'apis/user-java/pom.xml'
-        publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        testRunTitle: 'testpractice'
-        javaHomeOption: 'JDKVersion'
-        mavenVersionOption: 'Default'
-        mavenAuthenticateFeed: false
-        effectivePomSkip: false
-        sonarQubeRunAnalysis: false
-
-    #- task: CreateWorkItem@1
-    #  condition: failed()
-    #  inputs:
-    #    workItemType: 'Bug'
-    #    title: 'Bug on failed testing'
+        containerRegistry: 'Docker Hub'
+        repository: '$(imageRepositoryApiPio)'
+        command: 'buildAndPush'
+        Dockerfile: '$(dockerfilePathApiPio)'
+        tags: '$(tag)'
+    - task: HelmInstaller@1
+      displayName: Helm Install
+      inputs:
+        helmVersionToInstall: '2.14.1'
+    - task: HelmDeploy@0
+      displayName: Helm Package
+      inputs:
+        command: 'package'
+        chartPath: 'apis/poi/charts/mydrive-poi'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
     
-- stage: BuildApiUserJava
-  displayName: Build and push stage
+- stage: Build
+  displayName: Api User Java
   jobs:
   - job: UnitTesting
     displayName: Unit Testing
@@ -65,7 +72,7 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
-  - job: Build
+  - job: BuildApiUserJava
     displayName: Build
     pool:
       vmImage: $(vmImageName)
@@ -85,7 +92,7 @@ stages:
       displayName: Build and push an image to container registry
       inputs:
         containerRegistry: 'Docker Hub'
-        repository: '$(imageRepository)'
+        repository: '$(imageRepositoryApiUserJava)'
         command: 'buildAndPush'
         Dockerfile: '$(dockerfilePath)'
         tags: '$(tag)'
