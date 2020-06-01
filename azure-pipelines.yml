@@ -32,13 +32,14 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: GoTool@0
+    - task: UseDotNet@2
       inputs:
-        version: '1.10'
-    #- task: Go@0
-    #  inputs:
-    #    command: 'test'
-    #    workingDirectory: '$(Build.SourcesDirectory)/apis/poi'
+        packageType: 'sdk'
+        version: 
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'test'
+        workingDirectory: '$(Build.SourcesDirectory)/karlosarr/api-poi'
   - job: Build
     displayName: Api Pio
     pool:
