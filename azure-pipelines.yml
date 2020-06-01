@@ -42,6 +42,11 @@ stages:
           feedsToUse: 'select'
       - task: DotNetCoreCLI@2
         inputs:
+          command: 'build'
+          projects: '**/MyDriving.csproj'
+          arguments: '$(Build.SourcesDirectory)/MobileApps/'
+      - task: DotNetCoreCLI@2
+        inputs:
           command: 'push'
           packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
           nuGetFeedType: 'internal'
