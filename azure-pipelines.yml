@@ -13,9 +13,11 @@ variables:
   dockerRegistryServiceConnection: 'f009ea47-5fc6-4a29-8099-b3000b951482'
   imageRepositoryApiUserJava: 'karlosarr/api-user-java'
   imageRepositoryApiPio: 'karlosarr/api-poi'
+  imageRepositoryApiTrip: 'karlosarr/api-trip'
   containerRegistry: 'openhackb4i6acr.azurecr.io'
   dockerfilePathApiUserJava: '$(Build.SourcesDirectory)/apis/user-java/Dockerfile'
   dockerfilePathApiPio: 'apis/poi/web/Dockerfile'
+  dockerfilePathApiTrip: 'apis/trips/Dockerfile'
   tag: '$(Build.BuildId)'
   
   # Agent VM image name
@@ -33,10 +35,10 @@ stages:
     - task: GoTool@0
       inputs:
         version: '1.10'
-    - task: Go@0
-      inputs:
-        command: 'test'
-        workingDirectory: '$(Build.SourcesDirectory)/apis/poi'
+    #- task: Go@0
+    #  inputs:
+    #    command: 'test'
+    #    workingDirectory: '$(Build.SourcesDirectory)/apis/poi'
   - job: Build
     displayName: Api Pio
     pool:
@@ -117,6 +119,36 @@ stages:
       inputs:
         command: 'package'
         chartPath: 'apis/user-java/charts/mydrive-user-java'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+- stage: BuildApiTrip
+  displayName: Api Trip
+  jobs:
+  - job: Build
+    displayName: Api Trip
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        containerRegistry: 'Docker Hub'
+        repository: '$(imageRepositoryApiTrip)'
+        command: 'buildAndPush'
+        Dockerfile: '$(dockerfilePathApiTrip)'
+        tags: '$(tag)'
+    - task: HelmInstaller@1
+      displayName: Helm Install
+      inputs:
+        helmVersionToInstall: '2.14.1'
+    - task: HelmDeploy@0
+      displayName: Helm Package
+      inputs:
+        command: 'package'
+        chartPath: 'apis/trips/charts/mydrive-trips/'
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
