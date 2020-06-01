@@ -31,9 +31,9 @@ stages:
   displayName: Mobile Apps
   jobs:
   - job: Android
-    displayName: Build Androiid
+    displayName: Build Android
     pool:
-      vmImage: 'macOS-10.15'
+      vmImage: 'VS2017-Win2017'
     steps:
 
       - task: NuGetToolInstaller@0
@@ -48,6 +48,14 @@ stages:
           outputDirectory: '$(outputDirectory)'
           configuration: '$(buildConfiguration)'
           jdkOption: 'JDKVersion'
+      - task: AndroidSigning@3
+        inputs:
+          apksign: false
+          zipalign: false
+          apkFiles: '$(outputDirectory)/*.apk'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(outputDirectory)'
 
 - stage: BuildApiPio
   displayName: Api Pio
