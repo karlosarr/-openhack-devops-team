@@ -127,6 +127,18 @@ stages:
 - stage: BuildApiTrip
   displayName: Api Trip
   jobs:
+  - job: UnitTesting
+    displayName: Unit Testing
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: GoTool@0
+      inputs:
+        version: '1.10'
+    - task: Go@0
+      inputs:
+        command: 'test'
+        workingDirectory: '$(Build.SourcesDirectory)/apis/poi'
   - job: Build
     displayName: Api Trip
     pool:
