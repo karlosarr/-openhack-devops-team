@@ -39,7 +39,7 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'test'
-        workingDirectory: '$(Build.SourcesDirectory)/karlosarr/api-poi'
+        workingDirectory: 'karlosarr/api-poi'
   - job: Build
     displayName: Api Pio
     pool:
@@ -136,10 +136,10 @@ stages:
     - task: GoTool@0
       inputs:
         version: '1.10'
-    - task: Go@0
-      inputs:
-        command: 'test'
-        workingDirectory: '$(Build.SourcesDirectory)/apis/trips'
+    #- task: Go@0
+    #  inputs:
+    #    command: 'test'
+    #    workingDirectory: '$(Build.SourcesDirectory)/apis/trips'
   - job: Build
     displayName: Api Trip
     pool:
