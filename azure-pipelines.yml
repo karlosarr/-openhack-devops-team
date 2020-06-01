@@ -45,6 +45,7 @@ stages:
           command: 'restore'
           restoreSolution: 'MobileApps/MyDriving.sln'
           feedsToUse: 'select'
+          vstsFeed: '45f8bc66-4085-497a-aacb-67166f3cb31c/34e48097-4cec-41eb-9d6a-b98bf69767ff'
 
 - stage: BuildMobileApps
   displayName: Mobile Apps
