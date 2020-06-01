@@ -36,6 +36,7 @@ stages:
     - task: Go@0
       inputs:
         command: 'test'
+        workingDirectory: '$(Build.SourcesDirectory)/apis/poi'
   - job: Build
     displayName: Api Pio
     pool:
