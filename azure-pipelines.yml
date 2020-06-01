@@ -11,7 +11,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'f009ea47-5fc6-4a29-8099-b3000b951482'
-  imageRepository: 'devopsoh/api-user-java'
+  imageRepository: 'karlosarr/api-user-java'
   containerRegistry: 'openhackb4i6acr.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/apis/user-java/Dockerfile'
   tag: '$(Build.BuildId)'
@@ -54,16 +54,14 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    #- task: Docker@2
-    #  displayName: Build and push an image to container registry
-    #  inputs:
-    #    command: buildAndPush
-    #    #repository: $(imageRepository)
-    #    dockerfile: $(dockerfilePath)
-    #    #containerRegistry: $(dockerRegistryServiceConnection)
-    #    tags: |
-    #      $(tag)
-    
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        containerRegistry: 'Docker Hub'
+        repository: '$(imageRepository)'
+        command: 'buildAndPush'
+        Dockerfile: '$(dockerfilePath)'
+        tags: '$(tag)'
     - task: HelmInstaller@1
       displayName: Helm Install
       inputs:
