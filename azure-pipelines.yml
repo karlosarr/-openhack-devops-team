@@ -26,6 +26,21 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
+
+- stage: BuildMobileApps
+  displayName: Mobile Apps
+  jobs:
+  - job: Android
+    displayName: Build Androiid
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+      - task: XamarinAndroid@1
+        inputs:
+          projectFile: '$(Build.SourcesDirectory)/MobileApps/MyDriving/MyDriving.Android/MyDriving.Android.csproj'
+          clean: true
+          jdkOption: 'JDKVersion'
+
 - stage: BuildApiPio
   displayName: Api Pio
   jobs:
@@ -208,17 +223,3 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop'
         publishLocation: 'Container'
-
-- stage: BuildMobileApps
-  displayName: Mobile Apps
-  jobs:
-  - job: Android
-    displayName: Build Androiid
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-      - task: XamarinAndroid@1
-        inputs:
-          projectFile: '$(Build.SourcesDirectory)/MobileApps/MyDriving/MyDriving.Android/MyDriving.Android.csproj'
-          clean: true
-          jdkOption: 'JDKVersion'
