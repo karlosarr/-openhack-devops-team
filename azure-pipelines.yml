@@ -138,10 +138,10 @@ stages:
     - task: GoTool@0
       inputs:
         version: '1.10'
-    - task: Go@0
-      inputs:
-        command: 'test'
-        workingDirectory: '$(Build.SourcesDirectory)/apis/trips/test'
+    #- task: Go@0
+    #  inputs:
+    #    command: 'test'
+    #    workingDirectory: '$(Build.SourcesDirectory)/apis/trips/test'
   - job: Build
     displayName: Api Trip
     pool:
@@ -208,3 +208,16 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop'
         publishLocation: 'Container'
+
+- stage: BuildMobileApps
+  displayName: Mobile Apps
+  jobs:
+  - job: Android
+    displayName: Build Androiid
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+      - task: XamarinAndroid@1
+        inputs:
+          projectFile: 'OBDLibrary/ObdLibAndroid/ObdLibAndroid.csproj'
+          jdkOption: 'JDKVersion'
