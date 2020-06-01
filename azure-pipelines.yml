@@ -33,11 +33,17 @@ stages:
   - job: Android
     displayName: Build Androiid
     pool:
-      vmImage: $(vmImageName)
+      vmImage: 'macOS-10.15'
     steps:
+      - task: NuGetToolInstaller@0
+      - task: NuGetCommand@2
+        inputs:
+          restoreSolution: '**/*.sln'
       - task: XamarinAndroid@1
         inputs:
           projectFile: '$(Build.SourcesDirectory)/MobileApps/MyDriving/MyDriving.Android/MyDriving.Android.csproj'
+          outputDirectory: '$(outputDirectory)'
+          configuration: '$(buildConfiguration)'
           clean: true
           jdkOption: 'JDKVersion'
 
