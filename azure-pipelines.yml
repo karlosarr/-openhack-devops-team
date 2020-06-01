@@ -25,8 +25,7 @@ variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
-stages:
-
+stages:          
 - stage: BuildMobileApps
   displayName: Mobile Apps
   jobs:
@@ -40,7 +39,7 @@ stages:
       - task: NuGetCommand@2
         inputs:
           command: 'restore'
-          restoreSolution: 'MobileApps/MyDriving.XS.sln'
+          restoreSolution: 'MobileApps/MyDriving.sln'
           feedsToUse: 'select'
       - task: XamarinAndroid@1
         inputs:
