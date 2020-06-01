@@ -40,12 +40,11 @@ stages:
           command: 'restore'
           restoreSolution: 'MobileApps/MyDriving.sln'
           feedsToUse: 'select'
+      
       - task: DotNetCoreCLI@2
         inputs:
-          command: 'push'
-          packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-          nuGetFeedType: 'internal'
-          publishVstsFeed: '45f8bc66-4085-497a-aacb-67166f3cb31c/34e48097-4cec-41eb-9d6a-b98bf69767ff'
+          command: 'build'
+          projects: 'MobileApps/MyDriving/MyDriving/MyDriving.csproj'
 
 - stage: BuildMobileApps
   displayName: Mobile Apps
