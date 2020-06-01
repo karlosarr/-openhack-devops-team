@@ -22,7 +22,7 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
-- stage: BuildApiUserJava
+- stage: BuildApiPio
   displayName: Api Pio
   jobs:  
   - job: Build
@@ -53,7 +53,7 @@ stages:
         ArtifactName: 'drop'
         publishLocation: 'Container'
     
-- stage: Build
+- stage: BuildApiUserJava
   displayName: Api User Java
   jobs:
   - job: UnitTesting
