@@ -39,7 +39,7 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'test'
-        workingDirectory: 'karlosarr/api-poi'
+        workingDirectory: 'apis/poi'
   - job: Build
     displayName: Api Pio
     pool:
