@@ -41,10 +41,21 @@ stages:
           restoreSolution: 'MobileApps/MyDriving.sln'
           feedsToUse: 'select'
       
-      - task: DotNetCoreCLI@2
+      #- task: DotNetCoreCLI@2
+      #  inputs:
+      #    command: 'build'
+      #    projects: '$(Build.SourcesDirectory)/MobileApps/MyDriving/MyDriving/MyDriving.csproj'
+      - task: NuGetCommand@2
         inputs:
-          command: 'build'
-          projects: 'MobileApps/MyDriving/MyDriving/MyDriving.csproj'
+          command: 'pack'
+          packagesToPack: '**/MyDriving.csproj'
+          versioningScheme: 'off'
+      - task: NuGetCommand@2
+        inputs:
+          command: 'push'
+          packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+          nuGetFeedType: 'internal'
+          publishVstsFeed: '45f8bc66-4085-497a-aacb-67166f3cb31c/34e48097-4cec-41eb-9d6a-b98bf69767ff'
 
 - stage: BuildMobileApps
   displayName: Mobile Apps
