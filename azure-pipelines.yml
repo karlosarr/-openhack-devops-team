@@ -58,8 +58,9 @@ stages:
       - task: NuGetCommand@2
         inputs:
           command: 'restore'
-          restoreSolution: 'MobileApps/MyDriving.sln'
+          restoreSolution: 'MobileApps/MyDriving.XS.sln'
           feedsToUse: 'select'
+          vstsFeed: '45f8bc66-4085-497a-aacb-67166f3cb31c/34e48097-4cec-41eb-9d6a-b98bf69767ff'
       - task: XamarinAndroid@1
         inputs:
           projectFile: '$(Build.SourcesDirectory)/MobileApps/MyDriving/MyDriving.Android/MyDriving.Android.csproj'
