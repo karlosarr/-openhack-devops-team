@@ -94,7 +94,7 @@ stages:
         containerRegistry: 'Docker Hub'
         repository: '$(imageRepositoryApiUserJava)'
         command: 'buildAndPush'
-        Dockerfile: '$(dockerfilePath)'
+        Dockerfile: '$(dockerfilePathApiUserJava)'
         tags: '$(tag)'
     - task: HelmInstaller@1
       displayName: Helm Install
