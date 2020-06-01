@@ -42,9 +42,10 @@ stages:
           feedsToUse: 'select'
       - task: DotNetCoreCLI@2
         inputs:
-          command: 'pack'
-          packagesToPack: '**/MyDriving.csproj'
-          versioningScheme: 'off'
+          command: 'push'
+          packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+          nuGetFeedType: 'internal'
+          publishVstsFeed: '45f8bc66-4085-497a-aacb-67166f3cb31c/34e48097-4cec-41eb-9d6a-b98bf69767ff'
       #- task: DotNetCoreCLI@2
       #  inputs:
       #    command: 'build'
