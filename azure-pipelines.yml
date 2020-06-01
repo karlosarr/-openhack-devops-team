@@ -33,7 +33,7 @@ stages:
   - job: Android
     displayName: Build Android
     pool:
-      vmImage: 'windows-2019'
+      vmImage: 'VS2017-Win2016'
     steps:
 
       - task: NuGetToolInstaller@0
@@ -47,6 +47,7 @@ stages:
           projectFile: '$(Build.SourcesDirectory)/MobileApps/MyDriving/MyDriving.Android/MyDriving.Android.csproj'
           outputDirectory: '$(outputDirectory)'
           configuration: '$(buildConfiguration)'
+          createAppPackage: false
           jdkOption: 'JDKVersion'
       - task: AndroidSigning@3
         inputs:
