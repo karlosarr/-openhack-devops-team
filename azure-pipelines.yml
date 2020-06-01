@@ -35,16 +35,18 @@ stages:
     pool:
       vmImage: 'macOS-10.15'
     steps:
+
       - task: NuGetToolInstaller@0
       - task: NuGetCommand@2
         inputs:
-          restoreSolution: '**/*.sln'
+          command: 'restore'
+          restoreSolution: 'MobileApps/MyDriving.XS.sln'
+          feedsToUse: 'select'
       - task: XamarinAndroid@1
         inputs:
           projectFile: '$(Build.SourcesDirectory)/MobileApps/MyDriving/MyDriving.Android/MyDriving.Android.csproj'
           outputDirectory: '$(outputDirectory)'
           configuration: '$(buildConfiguration)'
-          clean: true
           jdkOption: 'JDKVersion'
 
 - stage: BuildApiPio
