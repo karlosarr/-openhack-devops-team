@@ -43,8 +43,8 @@ stages:
       - task: DotNetCoreCLI@2
         inputs:
           command: 'build'
-          projects: '**/MyDriving.csproj'
-          arguments: '$(Build.SourcesDirectory)/MobileApps/'
+          projects: 'MyDriving/MyDriving/MyDriving.csproj'
+          workingDirectory: '$(Build.SourcesDirectory)/MobileApps/'
       - task: DotNetCoreCLI@2
         inputs:
           command: 'push'
