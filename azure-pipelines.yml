@@ -40,6 +40,7 @@ stages:
           command: 'restore'
           restoreSolution: 'MobileApps/MyDriving.sln'
           feedsToUse: 'select'
+          restoreDirectory: '$(Build.SourcesDirectory)'
       - task: DotNetCoreCLI@2
         inputs:
           command: 'build'
