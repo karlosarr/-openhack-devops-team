@@ -92,7 +92,7 @@
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>6.2.2.jre8</version>
+            <version>6.5.4.jre8-preview</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
