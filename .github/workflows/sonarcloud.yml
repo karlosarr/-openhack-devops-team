@@ -1,4 +1,4 @@
-name: Build
+name: SonarCloud
 on:
   push:
     branches:
@@ -25,6 +25,7 @@ jobs:
             # mandatory
             -Dsonar.projectKey=karlosarr_api-trips
             -Dsonar.organization=karlosarr
+            -Dsonar.projectBaseDir=./apis/trips
             # Comma-separated paths to directories containing main source files.
             #-Dsonar.sources= # optional, default is project base directory
             # When you need the analysis to take place in a directory other than the one from which it was launched
