@@ -14,4 +14,4 @@ jobs:
 
     steps:
     - name: Build the Docker image
-      run: docker build . --file apis/trips/Dockerfile --tag karlosarr/api-trip:$(date +%s)
+      run: cd apis/trips/ && docker build . --file Dockerfile --tag karlosarr/api-trip:$(date +%s)
