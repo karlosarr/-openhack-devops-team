@@ -15,7 +15,7 @@
         "swaggerize-express": "^4.0.5",
         "swagmock": "1.0.0",
         "swagger-ui-express": "^3.0.10",
-        "tedious": "^2.6.4"
+        "tedious": "^2.7.1"
     },
     "devDependencies": {
         "eslint": "^5",
